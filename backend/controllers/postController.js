@@ -55,6 +55,8 @@ const updatePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
+ 
+
     // ownership check
     if (post.author.toString() !== req.user.id) {
       return res.status(403).json({ message: "Not authorized" });
@@ -91,5 +93,43 @@ const deletePost = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+ // ❤️ Like / Unlike Post
+const likePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
 
-module.exports = { createPost, getPosts, getPostById, updatePost, deletePost };
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    // Check if user has already liked the post
+    const hasLiked = post.likes.includes(req.user.id);
+
+    if (hasLiked) {
+      // Unlike
+      post.likes = post.likes.filter(
+        (userId) => userId.toString() !== req.user.id
+      );
+    } else {
+      // Like
+      post.likes.push(req.user.id);
+    }
+
+    await post.save();
+
+    res.status(200).json({
+      message: hasLiked ? "Post unliked" : "Post liked",
+      likes: post.likes,
+      totalLikes: post.likes.length,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+module.exports = { createPost, getPosts, getPostById, updatePost, deletePost, likePost };

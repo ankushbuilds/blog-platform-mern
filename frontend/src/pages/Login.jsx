@@ -11,7 +11,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Handle input change
+  // input change
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -19,7 +19,7 @@ const Login = () => {
     });
   };
 
-  // Submit login
+  // login submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,12 +28,27 @@ const Login = () => {
       const res = await API.post("/auth/login", form);
       console.log("Login response:", res.data);
 
-      // Save token
-      localStorage.setItem("token", res.data.token);
+      // 🔥 SAFE USER EXTRACTION (important fix)
+      const user =
+        res.data.user ||
+        res.data.data?.user ||
+        res.data;
+
+      const token = res.data.token;
+
+      // save safely
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
+
+      console.log("Saved user:", user);
 
       alert("Login successful 🚀");
 
-      // redirect to home
       navigate("/");
 
     } catch (error) {

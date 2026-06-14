@@ -1,11 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
-import {FaEdit, FaTrash} from "react-icons/fa";
+import { FaEdit, FaTrash, FaHeart } from "react-icons/fa";
 
 const PostCard = ({ post, refreshPosts }) => {
   const navigate = useNavigate();
 
-  // 🗑 DELETE POST
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  console.log("USER:", user);
+console.log("POST LIKES:", post.likes);
+console.log("IS MATCH:", post.likes?.includes(user?.id));
+
+  const isLiked = post.likes?.some(
+    (id) => id.toString() === user?.id?.toString()
+  );
+
+  // ❤️ LIKE
+  const handleLike = async () => {
+    try {
+      await API.put(`/posts/${post._id}/like`);
+
+      // refresh data from backend so UI updates correctly
+      if (refreshPosts) refreshPosts();
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 🗑 DELETE
   const handleDelete = async () => {
     const confirmDelete = window.confirm("Are you sure?");
     if (!confirmDelete) return;
@@ -13,7 +36,6 @@ const PostCard = ({ post, refreshPosts }) => {
     try {
       await API.delete(`/posts/${post._id}`);
 
-      // refresh list after delete
       if (refreshPosts) refreshPosts();
     } catch (error) {
       console.log(error);
@@ -25,46 +47,58 @@ const PostCard = ({ post, refreshPosts }) => {
 
       <div className="card-body">
 
-        {/* TITLE + EDIT ICON */}
+        {/* TITLE + ACTIONS */}
         <div className="d-flex justify-content-between">
 
           <h5>{post.title}</h5>
 
-          <div className="d-flex gap-2">
+          <div className="d-flex gap-2 align-items-center">
 
-  {/* Edit */}
-  <Link
-    to={`/edit/${post._id}`}
-    className="text-primary fs-5"
-  >
-    <FaEdit />
-  </Link>
+            {/* EDIT */}
+            <Link to={`/edit/${post._id}`} className="text-primary fs-5">
+              <FaEdit />
+            </Link>
 
-  {/* Delete */}
-  <button
-    onClick={handleDelete}
-    className="btn btn-sm border-0 text-danger"
-  >
-    <FaTrash />
-  </button>
+            {/* DELETE */}
+            <button onClick={handleDelete} className="btn text-danger">
+              <FaTrash />
+            </button>
 
-</div>
+            {/* LIKE */}
+            <button
+              onClick={handleLike}
+              className="btn border-0 p-0 d-flex align-items-center gap-1"
+            >
+              <FaHeart
+                size={18}
+                style={{
+                  color: isLiked ? "red" : "gray",
+                  transition: "0.2s",
+                  transform: isLiked ? "scale(1.2)" : "scale(1)",
+                }}
+              />
 
+              <span>{post.likes?.length || 0}</span>
+            </button>
+
+          </div>
         </div>
 
+        {/* CONTENT */}
         <p className="text-muted">
-          {post.content.length > 120
+          {post.content?.length > 120
             ? post.content.slice(0, 120) + "..."
             : post.content}
         </p>
 
       </div>
 
+      {/* FOOTER */}
       <div className="card-footer bg-white border-0">
 
         <button
-          className="btn btn-outline-primary btn-sm w-100"
           onClick={() => navigate(`/posts/${post._id}`)}
+          className="btn btn-outline-primary w-100"
         >
           Read More
         </button>
