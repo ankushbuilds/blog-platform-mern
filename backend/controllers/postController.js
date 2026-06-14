@@ -31,6 +31,21 @@ const getPosts = async (req, res) => {
   }
 };
 
+//Get POst by ID
+const getPostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate("author", "name email");
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}; 
+
 // UPDATE POST
 const updatePost = async (req, res) => {
   try {
@@ -77,4 +92,4 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getPosts, updatePost, deletePost };
+module.exports = { createPost, getPosts, getPostById, updatePost, deletePost };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import PostList from "../components/PostList";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -23,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // 🔐 Protect Home page
+    // Protect Home page
     if (!token) {
       navigate("/login");
       return;
@@ -43,7 +44,6 @@ const Home = () => {
 
   return (
     <div className="container mt-4">
-
       {/* Header */}
       <div className="text-center mb-4">
         <h2>📝 Latest Blog Posts</h2>
@@ -51,54 +51,16 @@ const Home = () => {
       </div>
 
       {/* Posts */}
-      <div className="row">
-
-        {posts.length === 0 ? (
-          <div className="text-center">
-            <h5>Sorry!! No posts found.</h5>
-          </div>
-        ) : (
-          posts.map((post) => (
-            <div className="col-md-4 mb-4" key={post._id}>
-
-              <div className="card h-100 shadow-sm">
-
-                <div className="card-body">
-
-                  <h5 className="card-title">
-                    {post.title}
-                  </h5>
-
-                  <p className="card-text text-muted">
-                    {post.content.length > 120
-                      ? post.content.substring(0, 120) + "..."
-                      : post.content}
-                  </p>
-
-                  <p className="small text-secondary">
-                    ✍️ By: {post.author?.name || "Unknown"}
-                  </p>
-
-                </div>
-
-                <div className="card-footer bg-white border-0">
-
-                  <button
-                    className="btn btn-outline-primary btn-sm w-100"
-                    onClick={() => navigate(`/posts/${post._id}`)}
-                  >
-                    Read More
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-          ))
-        )}
-
-      </div>
+      {posts.length === 0 ? (
+        <div className="text-center">
+          <h5>Please Upload Posts...</h5>
+        </div>
+      ) : (
+        <PostList
+          posts={posts}
+          refreshPosts={fetchPosts}
+        />
+      )}
     </div>
   );
 };
