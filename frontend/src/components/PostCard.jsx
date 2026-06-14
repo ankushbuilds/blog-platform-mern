@@ -7,9 +7,7 @@ const PostCard = ({ post, refreshPosts }) => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log("USER:", user);
-console.log("POST LIKES:", post.likes);
-console.log("IS MATCH:", post.likes?.includes(user?.id));
+
 
   const isLiked = post.likes?.some(
     (id) => id.toString() === user?.id?.toString()

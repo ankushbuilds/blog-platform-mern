@@ -81,11 +81,7 @@ const deletePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // ownership check
-    if (post.author.toString() !== req.user.id) {
-      return res.status(403).json({ message: "Not authorized" });
-    }
-
+   
     await post.deleteOne();
 
     res.json({ message: "Post deleted" });
