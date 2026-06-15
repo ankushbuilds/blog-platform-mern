@@ -60,7 +60,10 @@ const PostDetails = () => {
 
         </div>
          {/* GO TO COMMENTS PAGE */}
-      <div className="mt-3">
+    
+      </div>
+
+        <div className="mt-1">
         <button
           className="btn btn-outline-primary w-100"
           onClick={() => navigate(`/posts/${id}/comments`)}
@@ -76,7 +79,6 @@ const PostDetails = () => {
         <FaArrowLeft className="me-2" />
         Back
       </button>
-      </div>
       </div>
 
      
