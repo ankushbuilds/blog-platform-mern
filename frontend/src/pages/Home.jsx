@@ -36,31 +36,35 @@ const Home = () => {
   // Loading UI
   if (loading) {
     return (
-      <div className="text-center mt-5">
-        <h4>Loading posts...</h4>
+      <div className="loading-text mt-5">
+        Loading posts...
       </div>
     );
   }
 
   return (
     <div className="container mt-4">
-      {/* Header */}
-      <div className="text-center mb-4">
+
+      {/* HEADER */}
+      <div className="home-header">
         <h2>📝 Latest Blog Posts</h2>
-        <p className="text-muted">Explore all posts</p>
+        <p>Explore all posts from the community</p>
       </div>
 
-      {/* Posts */}
+      {/* POSTS */}
       {posts.length === 0 ? (
-        <div className="text-center">
-          <h5>Please Upload Posts...</h5>
+        <div className="empty-state">
+          No posts yet. Be the first to post 🚀
         </div>
       ) : (
-        <PostList
-          posts={posts}
-          refreshPosts={fetchPosts}
-        />
+        <div className="posts-grid">
+          <PostList
+            posts={posts}
+            refreshPosts={fetchPosts}
+          />
+        </div>
       )}
+
     </div>
   );
 };

@@ -67,70 +67,63 @@ const PostComments = () => {
     };
 
     return (
-        <div className="container mt-4">
+  <div className="comments-wrapper">
 
+    <div className="comments-box">
 
+      <h3 className="comments-title">Comments</h3>
 
-            <h3>Comments</h3>
+      {/* INPUT */}
+      <div className="comment-input-row">
 
-            {/* INPUT */}
-            <div className="d-flex gap-2 mb-3">
-                <input
-                    className="form-control"
-                    placeholder="Write a comment..."
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                />
+        <input
+          className="form-control"
+          placeholder="Write a comment..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
 
-                <FaPaperPlane
-                    onClick={handleComment}
-                    style={{
-                        color: "#0095f6",
-                        cursor: "pointer",
-                        fontSize: "18px",
-                        transition: "0.2s",
-                    }}
-                    onMouseOver={(e) => (e.target.style.transform = "scale(1.2)")}
-                    onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-                />
+        <FaPaperPlane
+          className="comment-send-icon"
+          onClick={handleComment}
+        />
+
+      </div>
+
+      {/* LIST */}
+      {comments.length === 0 ? (
+        <p className="text-muted">No comments yet</p>
+      ) : (
+        comments.map((c) => (
+          <div key={c._id} className="comment-item">
+
+            <div>
+              <div className="comment-user">{c.user?.name}</div>
+              <div className="comment-text">{c.content}</div>
             </div>
 
-            {/* LIST */}
-            {comments.length === 0 ? (
-                <p className="text-muted">No comments yet</p>
-            ) : (
-                comments.map((c) => (
-                    <div
-                        key={c._id}
-                        className="border p-2 rounded mb-2 d-flex justify-content-between"
-                    >
-                        <div>
-                            <b>{c.user?.name}</b>
-                            <p className="mb-0">{c.content}</p>
-                        </div>
+            <FaTrash
+              className="comment-delete"
+              onClick={() => deleteComment(c._id)}
+            />
 
-                        <FaTrash
-                            onClick={() => deleteComment(c._id)}
-                            style={{
-                                color: "#161515",
-                                cursor: "pointer",
-                                fontSize: "14px",
-                            }}
-                        />
+          </div>
+        ))
+      )}
 
+      {/* BACK */}
+      <button
+        className="btn btn-outline-dark comment-back-btn"
+        onClick={() => navigate(-1)}
+      >
+        <FaArrowLeft className="me-2" />
+        Back
+      </button>
 
-                    </div>
-                ))
-            )}
-            <button
-                className="btn btn-outline-dark w-100"
-                onClick={() => navigate(-1)}
-            >
-                <FaArrowLeft className="me-2" />
-                Back
-            </button>
-        </div>
-    );
+    </div>
+
+  </div>
+);
 };
 
 export default PostComments;

@@ -15,13 +15,11 @@ const CreatePost = () => {
 
     const token = localStorage.getItem("token");
 
-    // 🔐 Auth check
     if (!token) {
       navigate("/login");
       return;
     }
 
-    // ⚠️ Validation
     if (!title.trim() || !content.trim()) {
       setError("Title and content are required");
       return;
@@ -36,28 +34,19 @@ const CreatePost = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          title,
-          content,
-        }),
+        body: JSON.stringify({ title, content }),
       });
 
-      let data;
-      try {
-        data = await res.json();
-      } catch {
-        throw new Error("Invalid server response");
-      }
+      const data = await res.json();
 
       if (!res.ok) {
         throw new Error(data.message || "Failed to create post");
       }
 
-      // ✅ success
       setTitle("");
       setContent("");
-
       navigate("/");
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -66,48 +55,48 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="container mt-4" style={{ maxWidth: "650px" }}>
-      <h2 className="mb-3">Create Post</h2>
+    <div className="create-wrapper">
 
-      {/* Error message */}
-      {error && (
-        <div className="alert alert-danger py-2">{error}</div>
-      )}
+      <div className="create-card">
 
-      <form onSubmit={handleSubmit}>
-        {/* Title */}
-        <div className="mb-3">
-          <label className="form-label">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter post title..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
+        <h2 className="create-title">Create New Post</h2>
 
-        {/* Content */}
-        <div className="mb-3">
-          <label className="form-label">Content</label>
-          <textarea
-            className="form-control"
-            rows="6"
-            placeholder="Write your post..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        </div>
+        {error && <div className="create-error">{error}</div>}
 
-        {/* Button */}
-        <button
-          type="submit"
-          className="btn btn-primary w-100"
-          disabled={loading}
-        >
-          {loading ? "Posting..." : "Create Post"}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit}>
+
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter post title..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <textarea
+              className="form-control"
+              rows="6"
+              placeholder="Write your post..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="create-btn"
+            disabled={loading}
+          >
+            {loading ? "Posting..." : "Create Post"}
+          </button>
+
+        </form>
+
+      </div>
+
     </div>
   );
 };

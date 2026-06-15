@@ -44,79 +44,68 @@ const Register = () => {
   };
 
   return (
-    <div className="container mt-5">
+  <div className="page-wrapper">
 
-      <div className="row justify-content-center">
+    <div className="auth-card">
 
-        <div className="col-md-5">
+      <h2 className="auth-title">Create Account</h2>
 
-          <div className="card shadow p-4">
+      <form onSubmit={handleSubmit}>
 
-            <h3 className="text-center mb-4">Register</h3>
-
-            <form onSubmit={handleSubmit}>
-
-              {/* Name */}
-              <div className="mb-3">
-                <label className="form-label">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  placeholder="Enter name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              {/* Email */}
-              <div className="mb-3">
-                <label className="form-label">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Enter email"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              {/* Password */}
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  placeholder="Enter password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              {/* Button */}
-              <button
-                type="submit"
-                className="btn btn-primary w-100"
-                disabled={loading}
-              >
-                {loading ? "Registering..." : "Register"}
-              </button>
-
-            </form>
-
-          </div>
-
+        {/* NAME */}
+        <div className="mb-3">
+          <input
+            type="text"
+            name="name"
+            className="form-control"
+            placeholder="Enter name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
         </div>
 
-      </div>
+        {/* EMAIL */}
+        <div className="mb-3">
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder="Enter email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* PASSWORD */}
+        <div className="mb-3">
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder="Enter password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* BUTTON */}
+        <button
+          type="submit"
+          className="auth-btn"
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
+
+      </form>
 
     </div>
-  );
+
+  </div>
+);
 };
 
 export default Register;

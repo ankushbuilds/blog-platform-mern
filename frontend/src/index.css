@@ -1,0 +1,698 @@
+
+
+body {
+  background: #f6f7fb;
+  color: #222;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* =========================
+   HOME PAGE HEADER
+========================= */
+
+
+.home-header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.home-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+}
+
+.home-header p {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+/* =========================
+   POSTS GRID
+========================= */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  padding: 10px;
+  animation: fadeUp 0.6s ease;
+}
+
+/* =========================
+   POST CARD ENHANCEMENT
+========================= */
+.card {
+  border: none;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* subtle top glow effect */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* =========================
+   POST TITLE
+========================= */
+.card h5 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* =========================
+   BUTTONS (READ MORE EFFECT)
+========================= */
+.btn-outline-primary {
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* hover animation */
+.btn-outline-primary:hover {
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
+}
+
+.btn-outline-dark {
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #343a40;
+  color: #343a40;
+  background: transparent;
+}
+
+/* hover - pure dark theme */
+.btn-outline-dark:hover {
+  background: linear-gradient(90deg, #1f1f1f, #343a40);
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 16px;
+}
+
+/* =========================
+   LOADING ANIMATION
+========================= */
+.loading-text {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+
+/* =========================
+   ABOUT PAGE CONTAINER
+========================= */
+.about-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  animation: fadeUp 0.6s ease;
+}
+
+/* =========================
+   ABOUT CARD (MODERN GLASS STYLE)
+========================= */
+.about-card {
+  width: 100%;
+  max-width: 850px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* top gradient line effect */
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+}
+
+/* hover animation */
+.about-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   TITLE
+========================= */
+.about-card h2 {
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   PARAGRAPH TEXT
+========================= */
+.about-card p {
+  color: #555;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* =========================
+   SECTIONS HEADINGS
+========================= */
+.about-card h4 {
+  margin-top: 20px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* =========================
+   LIST STYLING (MODERN)
+========================= */
+.about-card ul {
+  padding-left: 20px;
+}
+
+.about-card ul li {
+  margin: 8px 0;
+  color: #444;
+  position: relative;
+  transition: 0.2s;
+}
+
+.about-card ul li:hover {
+  color: #007bff;
+  transform: translateX(5px);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================
+   CREATE POST PAGE WRAPPER
+========================= */
+.create-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 50px 15px;
+  background: #f6f7fb;
+  animation: fadeUp 0.6s ease;
+}
+
+/* =========================
+   CARD
+========================= */
+.create-card {
+  width: 100%;
+  max-width: 650px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* top gradient bar */
+.create-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+}
+
+/* =========================
+   TITLE
+========================= */
+.create-title {
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.create-card .form-control {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+}
+
+.create-card .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+}
+
+/* =========================
+   BUTTON
+========================= */
+.create-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.create-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,123,255,0.25);
+}
+
+.create-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* =========================
+   ERROR
+========================= */
+.create-error {
+  background: #ffe6e6;
+  color: #d60000;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+
+
+/* =========================
+   LOGIN WRAPPER
+========================= */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 60px 15px;
+  background: #f6f7fb;
+  animation: fadeUp 0.6s ease;
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* top gradient bar */
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #28a745, #00c6ff);
+}
+
+/* =========================
+   TITLE
+========================= */
+.login-title {
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #28a745, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.login-card .form-control {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+}
+
+.login-card .form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40,167,69,0.15);
+}
+
+/* =========================
+   BUTTON
+========================= */
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #28a745, #00c6ff);
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(40,167,69,0.25);
+}
+
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  padding: 30px 15px;
+  background: linear-gradient(135deg, #f6f7fb, #eef3ff);
+}
+
+/* =========================
+   AUTH CARD (REGISTER)
+========================= */
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.5s ease;
+}
+
+/* top gradient bar */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #6f42c1, #007bff, #00c6ff);
+}
+
+/* =========================
+   TITLE
+========================= */
+.auth-title {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 25px;
+  background: linear-gradient(90deg, #6f42c1, #007bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   INPUT FIELDS
+========================= */
+.auth-card .form-control {
+  border-radius: 12px;
+  padding: 11px 12px;
+  border: 1px solid #e4e6eb;
+  transition: all 0.25s ease;
+  font-size: 14px;
+  background: #fafbff;
+}
+
+.auth-card .form-control:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.15);
+  background: #fff;
+}
+
+/* =========================
+   BUTTON (REGISTER)
+========================= */
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #6f42c1, #007bff, #00c6ff);
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(111, 66, 193, 0.25);
+}
+
+.auth-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================
+   COMMENTS PAGE WRAPPER
+========================= */
+.comments-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 15px;
+  background: #f6f7fb;
+  animation: fadeUp 0.5s ease;
+}
+
+/* =========================
+   COMMENTS BOX
+========================= */
+.comments-box {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* top bar */
+.comments-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #0095f6, #00c6ff);
+}
+
+/* =========================
+   TITLE
+========================= */
+.comments-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* =========================
+   INPUT ROW (INSTAGRAM STYLE)
+========================= */
+.comment-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.comment-input-row .form-control {
+  border-radius: 25px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+  background: #fafbff;
+}
+
+.comment-input-row .form-control:focus {
+  border-color: #0095f6;
+  box-shadow: 0 0 0 3px rgba(0,149,246,0.15);
+}
+
+/* send icon */
+.comment-send-icon {
+  color: #0095f6;
+  cursor: pointer;
+  font-size: 20px;
+  transition: 0.2s;
+}
+
+.comment-send-icon:hover {
+  transform: scale(1.2);
+}
+
+/* =========================
+   COMMENT ITEM (INSTAGRAM STYLE)
+========================= */
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f9fafc;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+
+.comment-item:hover {
+  transform: translateX(4px);
+  background: #f1f7ff;
+}
+
+/* username */
+.comment-user {
+  font-weight: 600;
+  font-size: 14px;
+  color: #222;
+}
+
+/* text */
+.comment-text {
+  font-size: 14px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* delete icon */
+.comment-delete {
+  color: #ff4d4f;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.comment-delete:hover {
+  transform: scale(1.2);
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+.comment-back-btn {
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.comment-back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
