@@ -11,19 +11,23 @@ const commentRoutes = require("./routes/commentRoutes");
 
 const app = express();
 
-// ✅ MUST be FIRST
-app.use(cors());
+// ✅ CORS (FIXED)
+app.use(cors({
+  origin: [
+    "https://blog-platform-mern-9q76.vercel.app"
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// ✅ THEN DB CONNECT
 connectToMongoDB();
 
-// ✅ THEN ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
