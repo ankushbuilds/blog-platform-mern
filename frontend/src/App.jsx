@@ -7,6 +7,7 @@ import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
 import PostDetails from "./pages/PostDetails";
 import About from "./components/About";
+import PostComments from "./pages/PostComments";
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/edit/:id" element={<EditPost />} />
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/about" element={<About />} />
+        <Route path="/posts/:id/comments" element={<PostComments />} />
       </Routes>
     </BrowserRouter>
   );

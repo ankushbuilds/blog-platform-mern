@@ -22,7 +22,6 @@ const PostDetails = () => {
     fetchPost();
   }, [id]);
 
-  // Loading UI
   if (!post) {
     return (
       <div className="container mt-5 text-center">
@@ -33,16 +32,17 @@ const PostDetails = () => {
 
   return (
     <div className="container mt-4">
-      {/* Back Button */}
-    
 
-      {/* Post Card */}
+   
+
+      {/* POST CARD */}
       <div className="card shadow-sm">
         <div className="card-body">
+
           <h2 className="card-title mb-3">{post.title}</h2>
 
           <p className="text-muted mb-3">
-             <strong>Author:</strong>{" "}
+            <strong>Author:</strong>{" "}
             {post.author?.name || "Unknown"}
           </p>
 
@@ -57,15 +57,30 @@ const PostDetails = () => {
           >
             {post.content}
           </p>
+
         </div>
-          <button
-        className="btn btn-outline-dark mb-3"
+         {/* GO TO COMMENTS PAGE */}
+      <div className="mt-3">
+        <button
+          className="btn btn-outline-primary w-100"
+          onClick={() => navigate(`/posts/${id}/comments`)}
+        >
+          View Comments
+        </button>
+
+           {/* BACK BUTTON */}
+      <button
+        className="btn btn-outline-dark w-100"
         onClick={() => navigate(-1)}
       >
         <FaArrowLeft className="me-2" />
         Back
       </button>
       </div>
+      </div>
+
+     
+
     </div>
   );
 };

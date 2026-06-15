@@ -1,39 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
-import { FaEdit, FaTrash, FaHeart } from "react-icons/fa";
+import { FaEdit, FaTrash, FaHeart, FaComment } from "react-icons/fa";
 
 const PostCard = ({ post, refreshPosts }) => {
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-
-
   const isLiked = post.likes?.some(
     (id) => id.toString() === user?.id?.toString()
   );
 
-  // ❤️ LIKE
+  // ❤️ LIKE POST
   const handleLike = async () => {
     try {
       await API.put(`/posts/${post._id}/like`);
-
-      // refresh data from backend so UI updates correctly
       if (refreshPosts) refreshPosts();
-
     } catch (error) {
       console.log(error);
     }
   };
 
-  // 🗑 DELETE
+  // 🗑 DELETE POST
   const handleDelete = async () => {
     const confirmDelete = window.confirm("Are you sure?");
     if (!confirmDelete) return;
 
     try {
       await API.delete(`/posts/${post._id}`);
-
       if (refreshPosts) refreshPosts();
     } catch (error) {
       console.log(error);
@@ -46,9 +40,9 @@ const PostCard = ({ post, refreshPosts }) => {
       <div className="card-body">
 
         {/* TITLE + ACTIONS */}
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between align-items-start">
 
-          <h5>{post.title}</h5>
+          <h5 className="mb-2">{post.title}</h5>
 
           <div className="d-flex gap-2 align-items-center">
 
@@ -58,7 +52,7 @@ const PostCard = ({ post, refreshPosts }) => {
             </Link>
 
             {/* DELETE */}
-            <button onClick={handleDelete} className="btn text-danger">
+            <button onClick={handleDelete} className="btn p-0">
               <FaTrash />
             </button>
 
@@ -75,7 +69,6 @@ const PostCard = ({ post, refreshPosts }) => {
                   transform: isLiked ? "scale(1.2)" : "scale(1)",
                 }}
               />
-
               <span>{post.likes?.length || 0}</span>
             </button>
 
@@ -94,11 +87,21 @@ const PostCard = ({ post, refreshPosts }) => {
       {/* FOOTER */}
       <div className="card-footer bg-white border-0">
 
+        {/* READ MORE */}
         <button
           onClick={() => navigate(`/posts/${post._id}`)}
-          className="btn btn-outline-primary w-100"
+          className="btn btn-outline-primary w-100 mb-2"
         >
           Read More
+        </button>
+
+        {/* COMMENTS */}
+        <button
+          onClick={() => navigate(`/posts/${post._id}/comments`)}
+          className="btn btn-outline-dark w-100 d-flex justify-content-center align-items-center gap-2"
+        >
+          <FaComment />
+          Comments
         </button>
 
       </div>
