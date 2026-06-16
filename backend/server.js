@@ -11,26 +11,29 @@ const commentRoutes = require("./routes/commentRoutes");
 
 const app = express();
 
-// 🔥 ALLOWED ORIGINS (IMPORTANT)
+// ✅ Allowed Origins
 const allowedOrigins = [
+  "https://blog-platform-mern-rho.vercel.app", // Current Vercel frontend
   "https://blog-platform-mern-drab.vercel.app",
   "https://blog-platform-mern-9q76.vercel.app",
-  "http://localhost:5173"
+  "http://localhost:5173",
 ];
 
-// 🔥 CORS CONFIG (FIXED FOR credentials + preflight)
+// ✅ CORS Configuration
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow server-to-server or curl (no origin)
-      if (!origin) return callback(null, true);
+      // Allow requests with no origin (Postman, curl, mobile apps, etc.)
+      if (!origin) {
+        return callback(null, true);
+      }
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
-      } else {
-        console.log("❌ Blocked by CORS:", origin);
-        return callback(new Error("Not allowed by CORS"));
       }
+
+      console.log("❌ Blocked by CORS:", origin);
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -38,31 +41,37 @@ app.use(
   })
 );
 
-// 🔥 HANDLE PRE-FLIGHT REQUESTS
-app.options("*", cors());
+// ✅ Handle preflight requests
+app.options(
+  "*",
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
-// 🔥 Body parsers
+// ✅ Body Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 🔥 DB connection
+// ✅ Connect to MongoDB
 connectToMongoDB();
 
-// 🔥 Routes
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 
-// 🔥 Health check
+// ✅ Health Check
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "API is running 🚀",
   });
 });
 
-// 🔥 PORT
+// ✅ Start Server
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
