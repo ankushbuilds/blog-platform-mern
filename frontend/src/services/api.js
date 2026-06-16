@@ -1,23 +1,23 @@
 import axios from "axios";
 
-// 🔥 Make sure env is properly handled
+// 🔥 Base URL from env
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-// Safety check (important for debugging)
+// ❌ Safety check
 if (!BASE_URL) {
-  console.error("❌ VITE_API_URL is not defined in .env");
+  console.error("❌ VITE_API_URL is missing in .env file");
 }
 
-// Create axios instance
+// 🔥 Axios instance
 const API = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // 🔥 important for cookies/auth consistency
+  withCredentials: true, // required for cookies/session auth
 });
 
-// Attach JWT token automatically
+// 🔥 Request interceptor (attach JWT token)
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -29,6 +29,19 @@ API.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+// 🔥 Response interceptor (optional but helpful for debugging)
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      console.error("❌ API Error:", error.response.data);
+    } else {
+      console.error("❌ Network Error:", error.message);
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default API;
