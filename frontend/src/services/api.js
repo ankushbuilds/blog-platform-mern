@@ -1,27 +1,34 @@
 import axios from "axios";
 
+// 🔥 Make sure env is properly handled
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+// Safety check (important for debugging)
+if (!BASE_URL) {
+  console.error("❌ VITE_API_URL is not defined in .env");
+}
+
 // Create axios instance
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // Render backend URL from Vercel env
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true, // 🔥 important for cookies/auth consistency
 });
 
-// Attach JWT token automatically to every request
+// Attach JWT token automatically
 API.interceptors.request.use(
-  (req) => {
+  (config) => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      req.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
-    return req;
+    return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default API;
