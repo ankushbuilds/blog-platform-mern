@@ -14,7 +14,7 @@ const API = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // required for cookies/session auth
+  // ❌ REMOVE withCredentials
 });
 
 // 🔥 Request interceptor (attach JWT token)
@@ -31,7 +31,7 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 🔥 Response interceptor (optional but helpful for debugging)
+// 🔥 Response interceptor
 API.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -40,6 +40,7 @@ API.interceptors.response.use(
     } else {
       console.error("❌ Network Error:", error.message);
     }
+
     return Promise.reject(error);
   }
 );
