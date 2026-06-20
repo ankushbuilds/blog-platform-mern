@@ -14,7 +14,7 @@ const PostCard = ({ post, refreshPosts }) => {
   // ❤️ LIKE POST
   const handleLike = async () => {
     try {
-      await API.put(`/posts/${post._id}/like`);
+      await API.put(`/api/posts/${post._id}/like`);
       if (refreshPosts) refreshPosts();
     } catch (error) {
       console.log(error);
@@ -27,7 +27,7 @@ const PostCard = ({ post, refreshPosts }) => {
     if (!confirmDelete) return;
 
     try {
-      await API.delete(`/posts/${post._id}`);
+      await API.delete(`/api/posts/${post._id}`);
       if (refreshPosts) refreshPosts();
     } catch (error) {
       console.log(error);

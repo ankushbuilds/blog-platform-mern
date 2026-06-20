@@ -19,7 +19,7 @@ const PostComments = () => {
 
     const fetchComments = async () => {
         try {
-            const res = await API.get(`/comments/${id}`);
+            const res = await API.get(`/api/comments/${id}`);
             setComments(res.data);
         } catch (error) {
             console.log(error);
@@ -32,7 +32,7 @@ const PostComments = () => {
 
         try {
             const res = await API.post(
-                "/comments",
+                "/api/comments",
                 {
                     content: text,
                     postId: id,
@@ -54,7 +54,7 @@ const PostComments = () => {
     // DELETE COMMENT
     const deleteComment = async (commentId) => {
         try {
-            await API.delete(`/comments/${commentId}`, {
+            await API.delete(`/api/comments/${commentId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

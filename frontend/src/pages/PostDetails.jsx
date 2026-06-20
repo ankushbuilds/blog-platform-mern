@@ -12,7 +12,7 @@ const PostDetails = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await API.get(`/posts/${id}`);
+        const res = await API.get(`/api/posts/${id}`);
         setPost(res.data);
       } catch (error) {
         console.log(error);

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-// 🔥 Base URL from env
+// 🔥 Base URL
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-// ❌ Safety check
+// ❗ HARD STOP if missing (important)
 if (!BASE_URL) {
-  console.error("❌ VITE_API_URL is missing in .env file");
+  throw new Error("❌ VITE_API_URL missing in frontend .env file");
 }
 
 // 🔥 Axios instance
@@ -14,10 +14,9 @@ const API = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  // ❌ REMOVE withCredentials
 });
 
-// 🔥 Request interceptor (attach JWT token)
+// 🔥 Attach JWT token
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -31,7 +30,7 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 🔥 Response interceptor
+// 🔥 Error handling
 API.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -40,7 +39,6 @@ API.interceptors.response.use(
     } else {
       console.error("❌ Network Error:", error.message);
     }
-
     return Promise.reject(error);
   }
 );

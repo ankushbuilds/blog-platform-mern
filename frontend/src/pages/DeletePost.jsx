@@ -27,7 +27,7 @@ const Home = () => {
     if (!confirmed) return;
 
     try {
-      await API.delete(`/posts/${id}`);
+      await API.delete(`/api/posts/${id}`);
       setPosts((prev) => prev.filter((post) => post._id !== id && post.id !== id));
       alert("Post deleted");
     } catch (error) {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -28,27 +29,22 @@ const CreatePost = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ title, content }),
+      const res = await API.post("/api/posts", {
+        title,
+        content,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to create post");
-      }
+      console.log(res.data);
 
       setTitle("");
       setContent("");
-      navigate("/");
 
+      alert("Post created successfully 🚀");
+      navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError(
+        err.response?.data?.message || "Failed to create post"
+      );
     } finally {
       setLoading(false);
     }
@@ -56,15 +52,12 @@ const CreatePost = () => {
 
   return (
     <div className="create-wrapper">
-
       <div className="create-card">
-
         <h2 className="create-title">Create New Post</h2>
 
         {error && <div className="create-error">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-
           <div className="mb-3">
             <input
               type="text"
@@ -72,6 +65,7 @@ const CreatePost = () => {
               placeholder="Enter post title..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
 
@@ -82,6 +76,7 @@ const CreatePost = () => {
               placeholder="Write your post..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
+              required
             />
           </div>
 
@@ -92,11 +87,8 @@ const CreatePost = () => {
           >
             {loading ? "Posting..." : "Create Post"}
           </button>
-
         </form>
-
       </div>
-
     </div>
   );
 };

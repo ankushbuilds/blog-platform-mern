@@ -14,7 +14,7 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await API.get(`/posts/${id}`);
+        const res = await API.get(`/api/posts/${id}`);
         setForm({
           title: res.data.title,
           content: res.data.content,
@@ -39,7 +39,7 @@ const EditPost = () => {
 
     try {
         console.log("Updating post with ID:", id);
-       await API.put(`/posts/${id}`, form);
+       await API.put(`/api/posts/${id}`, form);
       alert("Post updated successfully");
       navigate("/");
     } catch (err) {
