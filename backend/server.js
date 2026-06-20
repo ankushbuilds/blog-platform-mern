@@ -18,6 +18,7 @@ const allowedOrigins = [
   "https://blog-platform-mern-drab.vercel.app",
   "https://blog-platform-mern-9q76.vercel.app",
   "http://localhost:5173",
+  "https://blog-platform-mern-psi.vercel.app",
 ];
 
 // ✅ CORS
